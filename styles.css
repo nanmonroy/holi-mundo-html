@@ -1,0 +1,42 @@
+body {
+    background: radial-gradient(circle, #ffe0ec 0%, #ffc3a0 100%);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.tarjeta {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: #ff69b4;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px #ffe0ec;
+}
+
+p {
+    font-size: 1.2em;
+    color: #666;
+    margin: 0;
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
