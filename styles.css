@@ -1,42 +1,71 @@
 body {
-    background: radial-gradient(circle, #ffe0ec 0%, #ffc3a0 100%);
+    background: linear-gradient(135deg, #f6d1f5, #d6f0fa);
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    padding: 30px;
+    background-color: #ff9cee;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    font-size: 2.5em;
     margin: 0;
 }
 
-.tarjeta {
-    background-color: #ffffff;
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    animation: flotar 3s ease-in-out infinite;
+header p {
+    font-size: 1.2em;
 }
 
-h1 {
-    font-size: 2.8em;
-    color: #ff69b4;
+.card {
+    background: #fff;
+    border-radius: 25px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 400px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100px;
     margin-bottom: 15px;
-    text-shadow: 2px 2px #ffe0ec;
+}
+
+.card h2 {
+    color: #ff61a6;
+}
+
+footer {
+    background-color: #ffc9f3;
+    padding: 15px;
+    color: #fff;
+    margin-top: 50px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 p {
-    font-size: 1.2em;
-    color: #666;
-    margin: 0;
+    font-size: 1.1em;
 }
 
-@keyframes flotar {
-    0%, 100% {
-        transform: translateY(0px);
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 1.8em;
     }
-    50% {
-        transform: translateY(-10px);
+
+    .card {
+        margin: 20px;
+        padding: 15px;
     }
 }
