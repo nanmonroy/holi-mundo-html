@@ -9,39 +9,180 @@
 <body>
     <header>
         <h1>🌟 Bienvenid@ a Mi Universo Cute Tech 🌟</h1>
-        <p>Descubre cómo se conectan GitHub, Visual Studio y Discord en este mundito lleno de colores 🌈✨</p>
+        <p>Descubre cómo se conectan GitHub, Visual Studio Code y Discord en este mundito lleno de colores 🌈✨</p>
     </header>
 
-    <section class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968866.png" alt="GitHub logo">
+    <nav>
+        <ul>
+            <li><a href="#github">🐱 GitHub</a></li>
+            <li><a href="#vscode">💻 Visual Studio Code</a></li>
+            <li><a href="#discord">🎮 Discord</a></li>
+        </ul>
+    </nav>
+
+    <section id="github">
         <h2>🐱 GitHub</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968866.png" alt="GitHub logo">
         <p>GitHub es una plataforma donde puedes guardar tus proyectos, colaborar con otros programadores y tener todo tu código seguro en la nube.</p>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </section>
 
-    <section class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" alt="Visual Studio logo">
+    <section id="vscode">
         <h2>💻 Visual Studio Code</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" alt="Visual Studio Code logo">
         <p>Visual Studio Code es un editor de código superligero, personalizable y amigable, ideal para escribir tus programas y conectarte fácilmente con GitHub desde ahí.</p>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </section>
 
-    <section class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord logo">
+    <section id="discord">
         <h2>🎮 Discord</h2>
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord logo">
         <p>Discord no solo es para gamers, también sirve para crear comunidades de programadores, organizar proyectos en grupo y compartir avances en canales especiales.</p>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </section>
 
-    <section class="card">
-        <h2>✨ ¿Cómo se conectan entre sí? ✨</h2>
-        <p>
-            🔹 Escribes tu código en Visual Studio Code.<br>
-            🔹 Lo subes a GitHub para que quede guardado y otras personas puedan verlo o colaborar.<br>
-            🔹 Y en Discord, creas un canal con tu equipo o amigos para platicar, resolver dudas y compartir avances en tiempo real.<br><br>
-            ¡Todo en un ambiente cute, colorido y amigable! 🌸
-        </p>
+    <section id="game">
+        <h2>🎮 Mini Juego: Aventura GitHub</h2>
+        <p>¡Ayuda al gato de GitHub a recolectar estrellas mientras evita los obstáculos!</p>
+        <div class="game-container">
+            <canvas id="githubGame" width="400" height="300" style="background-color: #f0f0f0; border: 2px solid #ccc;"></canvas>
+<script>
+    const canvas = document.getElementById("githubGame");
+    const ctx = canvas.getContext("2d");
+
+    let cat = { x: 50, y: 150, width: 30, height: 30, dy: 0 };
+    let gravity = 0.6;
+    let isJumping = false;
+    let stars = [];
+    let obstacles = [];
+    let score = 0;
+    let gameOver = false;
+
+    document.addEventListener("keydown", function (e) {
+        if (e.code === "Space" && !isJumping && !gameOver) {
+            cat.dy = -10;
+            isJumping = true;
+        }
+        if (gameOver && e.code === "Enter") {
+            resetGame();
+        }
+    });
+
+    function createStar() {
+        stars.push({ x: 400, y: Math.random() * 250, width: 20, height: 20 });
+    }
+
+    function createObstacle() {
+        obstacles.push({ x: 400, y: 260, width: 20, height: 40 });
+    }
+
+    function drawCat() {
+        ctx.fillStyle = "#000";
+        ctx.fillRect(cat.x, cat.y, cat.width, cat.height);
+    }
+
+    function drawStars() {
+        ctx.fillStyle = "gold";
+        for (let star of stars) {
+            ctx.fillRect(star.x, star.y, star.width, star.height);
+        }
+    }
+
+    function drawObstacles() {
+        ctx.fillStyle = "red";
+        for (let obs of obstacles) {
+            ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+        }
+    }
+
+    function updateGame() {
+        if (gameOver) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        cat.dy += gravity;
+        cat.y += cat.dy;
+
+        if (cat.y + cat.height >= canvas.height) {
+            cat.y = canvas.height - cat.height;
+            cat.dy = 0;
+            isJumping = false;
+        }
+
+        // Mueve y dibuja estrellas
+        stars.forEach((star, i) => {
+            star.x -= 3;
+            if (star.x + star.width < 0) stars.splice(i, 1);
+            if (collision(cat, star)) {
+                stars.splice(i, 1);
+                score++;
+            }
+        });
+
+        // Mueve y dibuja obstáculos
+        obstacles.forEach((obs, i) => {
+            obs.x -= 4;
+            if (obs.x + obs.width < 0) obstacles.splice(i, 1);
+            if (collision(cat, obs)) gameOver = true;
+        });
+
+        drawCat();
+        drawStars();
+        drawObstacles();
+
+        // Mostrar puntuación
+        ctx.fillStyle = "#333";
+        ctx.font = "16px Arial";
+        ctx.fillText("Estrellas: " + score, 10, 20);
+
+        if (gameOver) {
+            ctx.fillStyle = "black";
+            ctx.font = "20px Comic Sans MS";
+            ctx.fillText("😿 ¡Game Over! Presiona Enter", 50, 150);
+        }
+
+        requestAnimationFrame(updateGame);
+    }
+
+    function collision(a, b) {
+        return a.x < b.x + b.width && a.x + a.width > b.x &&
+               a.y < b.y + b.height && a.y + a.height > b.y;
+    }
+
+    function resetGame() {
+        stars = [];
+        obstacles = [];
+        score = 0;
+        cat.y = 150;
+        cat.dy = 0;
+        gameOver = false;
+    }
+
+    setInterval(createStar, 3000);
+    setInterval(createObstacle, 2000);
+    updateGame();
+</script>
+        </div>
+    </section>
+
+    <section id="avatar">
+        <h2>👾 Avatar Guía</h2>
+        <div class="avatar-container">
+            <img src="avatar.gif" alt="Avatar animado" class="avatar">
+            <p>¡Hola! Soy tu guía en este mundo tech. ¿Listo para aprender?</p>
+        </div>
     </section>
 
     <footer>
         <p>🌸 Hecho con amor por Nonis✨</p>
     </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
