@@ -119,9 +119,26 @@
       };
 
       let score = 0;
+     // Limpiar estilos anteriores
+      document.querySelectorAll("label").forEach(label => {
+        label.style.backgroundColor = "transparent";
+      });
+
       for (let q in answers) {
-        const selected = document.querySelector(input[name="${q}"]:checked);
-        if (selected && selected.value === answers[q]) score++;
+        const correct = answers[q];
+        const radios = document.getElementsByName(q);
+
+        radios.forEach(radio => {
+          if (radio.value === correct) {
+            radio.parentElement.style.backgroundColor = "#d4f8d4"; // Verde clarito
+          }
+
+          if (radio.checked && radio.value === correct) {
+            score++;
+          } else if (radio.checked && radio.value !== correct) {
+            radio.parentElement.style.backgroundColor = "#f8d4d4"; // Rojo clarito
+          }
+        });
       }
 
       document.getElementById("quizResult").textContent =
